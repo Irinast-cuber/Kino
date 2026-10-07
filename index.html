@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OBSCURA — Limited Fashion Drops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --bg-soft:#111111;
+    --fg:#f2f2f0;
+    --muted:#8a8a85;
+    --line:#1f1f1f;
+    --accent:#c8a882;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--fg);
+    font-family:'Inter',sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  ::selection{background:var(--accent);color:#000}
+
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:24px 48px;
+    z-index:100;
+    mix-blend-mode:difference;
+    color:#fff;
+    font-size:12px;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    font-weight:400;
+  }
+  nav .logo{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:.3em;font-weight:500}
+  nav ul{display:flex;gap:36px;list-style:none}
+  nav ul a{opacity:.7;transition:opacity .3s}
+  nav ul a:hover{opacity:1}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    height:100vh;
+    min-height:640px;
+    display:flex;
+    align-items:flex-end;
+    padding:0 48px 64px;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(120,30,60,.45), transparent 55%),
+      radial-gradient(ellipse at 75% 70%, rgba(40,20,80,.55), transparent 60%),
+      linear-gradient(180deg,#0d0510 0%, #1a0a14 45%, #0a0a0a 100%);
+    z-index:0;
+  }
+  .hero-bg::after{
+    content:"";
+    position:absolute;inset:0;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,.015) 0 1px, transparent 1px 4px);
+    opacity:.6;
+    mix-blend-mode:overlay;
+  }
+  /* Абстрактные фигуры, имитирующие силуэты */
+  .shape{
+    position:absolute;border-radius:50%;
+    filter:blur(60px);
+    opacity:.55;
+  }
+  .shape.s1{width:420px;height:420px;background:#6b1230;top:8%;left:12%}
+  .shape.s2{width:340px;height:340px;background:#3a1258;top:35%;right:18%}
+  .shape.s3{width:280px;height:280px;background:#a83a3a;bottom:10%;left:45%;opacity:.35}
+
+  .hero-content{position:relative;z-index:2;max-width:900px}
+  .hero-tag{
+    display:inline-block;
+    font-size:11px;letter-spacing:.4em;text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:24px;
+    padding:6px 14px;
+    border:1px solid var(--accent);
+  }
+  .hero h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:500;
+    font-size:clamp(48px,9vw,132px);
+    line-height:.95;
+    letter-spacing:-.02em;
+    margin-bottom:24px;
+  }
+  .hero h1 em{font-style:italic;color:var(--accent);font-weight:400}
+  .hero-meta{
+    display:flex;gap:40px;flex-wrap:wrap;
+    font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:36px;
+  }
+  .hero-meta span{position:relative;padding-left:18px}
+  .hero-meta span::before{
+    content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+    width:8px;height:1px;background:var(--accent);
+  }
+  .btn{
+    display:inline-block;
+    padding:16px 40px;
+    border:1px solid var(--fg);
+    font-size:11px;letter-spacing:.35em;text-transform:uppercase;
+    transition:all .4s ease;
+    cursor:pointer;
+    background:transparent;color:var(--fg);
+    font-family:inherit;
+  }
+  .btn:hover{background:var(--fg);color:#000}
+  .btn.gold{border-color:var(--accent);color:var(--accent)}
+  .btn.gold:hover{background:var(--accent);color:#000}
+
+  .scroll-hint{
+    position:absolute;bottom:32px;right:48px;
+    font-size:10px;letter-spacing:.4em;text-transform:uppercase;
+    color:var(--muted);z-index:2;
+    writing-mode:vertical-rl;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:140px 48px}
+  .section-head{margin-bottom:80px;max-width:1400px;margin-left:auto;margin-right:auto}
+  .section-head .kicker{
+    font-size:11px;letter-spacing:.4em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:20px;
+    display:flex;align-items:center;gap:16px;
+  }
+  .section-head .kicker::after{
+    content:"";flex:1;max-width:80px;height:1px;background:var(--accent);opacity:.5;
+  }
+  .section-head h2{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-size:clamp(36px,5vw,72px);
+    line-height:1.05;
+    letter-spacing:-.01em;
+  }
+  .section-head h2 em{font-style:italic;color:var(--accent)}
+  .section-head p{
+    margin-top:24px;max-width:620px;color:var(--muted);font-size:15px;
+  }
+
+  .container{max-width:1400px;margin:0 auto}
+
+  /* ---------- PRODUCTS ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:32px;
+  }
+  .card{
+    background:var(--bg-soft);
+    overflow:hidden;
+    position:relative;
+    transition:transform .5s ease;
+    cursor:pointer;
+  }
+  .card:hover{transform:translateY(-6px)}
+  .card-img{
+    aspect-ratio:3/4;
+    position:relative;
+    overflow:hidden;
+  }
+  .card-img .ph{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Cormorant Garamond',serif;
+    font-size:80px;color:rgba(255,255,255,.08);
+    letter-spacing:.1em;
+  }
+  .card-img .badge{
+    position:absolute;top:16px;left:16px;
+    background:rgba(0,0,0,.6);
+    backdrop-filter:blur(8px);
+    padding:6px 12px;
+    font-size:10px;letter-spacing:.25em;text-transform:uppercase;
+    color:var(--accent);
+    border:1px solid rgba(200,168,130,.3);
+  }
+  .card-img .stock{
+    position:absolute;bottom:16px;right:16px;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:#fff;background:rgba(0,0,0,.7);
+    padding:6px 12px;backdrop-filter:blur(8px);
+  }
+  .card-img .stock.low{color:#ff8a8a}
+  .card-body{padding:24px 24px 28px}
+  .card-body h3{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:500;font-size:22px;letter-spacing:.02em;
+    margin-bottom:6px;
+  }
+  .card-body .price{
+    color:var(--muted);font-size:13px;letter-spacing:.1em;
+  }
+  .card-body .bar{
+    height:1px;background:#222;margin-top:20px;position:relative;overflow:hidden;
+  }
+  .card-body .bar span{
+    position:absolute;left:0;top:0;bottom:0;background:var(--accent);
+  }
+
+  /* Цвета-заглушки для карточек */
+  .c1{background:linear-gradient(135deg,#2a0a1a 0%,#5a1030 50%,#1a0512 100%)}
+  .c2{background:linear-gradient(135deg,#0f0a1e 0%,#2a1550 50%,#080410 100%)}
+  .c3{background:linear-gradient(135deg,#1a0a05 0%,#4a1a10 50%,#0d0502 100%)}
+  .c4{background:linear-gradient(135deg,#050f1a 0%,#103050 50%,#02060d 100%)}
+  .c5{background:linear-gradient(135deg,#1a0a1a 0%,#401040 50%,#0d040d 100%)}
+  .c6{background:linear-gradient(135deg,#0a1a10 0%,#10402a 50%,#040d08 100%)}
+  .c7{background:linear-gradient(135deg,#1a1005 0%,#402a10 50%,#0d0802 100%)}
+
+  /* ---------- STORY ---------- */
+  .story{
+    background:var(--bg-soft);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .story-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+    align-items:center;
+  }
+  .story-visual{
+    aspect-ratio:4/5;
+    background:
+      radial-gradient(circle at 40% 30%, rgba(200,168,130,.25), transparent 60%),
+      radial-gradient(circle at 70% 70%, rgba(120,30,60,.4), transparent 55%),
+      linear-gradient(160deg,#1a0a14,#0a0a0a);
+    position:relative;
+    overflow:hidden;
+  }
+  .story-visual::after{
+    content:"MOODBOARD / DROP 01";
+    position:absolute;bottom:24px;left:24px;
+    font-size:10px;letter-spacing:.4em;text-transform:uppercase;
+    color:var(--accent);
+  }
+  .story-text p{color:var(--muted);margin-bottom:20px;font-size:15px}
+  .story-text .lede{
+    color:var(--fg);font-family:'Cormorant Garamond',serif;
+    font-size:26px;line-height:1.4;font-style:italic;
+    margin-bottom:32px;
+  }
+
+  /* ---------- DESIGNER ---------- */
+  .designer-grid{
+    display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:center;
+  }
+  .designer-photo{
+    aspect-ratio:3/4;
+    background:linear-gradient(160deg,#1a1a1a,#0a0a0a);
+    position:relative;
+    overflow:hidden;
+  }
+  .designer-photo::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 40%, rgba(200,168,130,.15), transparent 60%);
+  }
+  .designer-photo::after{
+    content:"PORTRAIT";
+    position:absolute;bottom:24px;left:24px;
+    font-size:10px;letter-spacing:.4em;color:var(--muted);
+  }
+  .designer-text .name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(32px,4vw,52px);
+    font-weight:400;line-height:1.1;margin-bottom:12px;
+  }
+  .designer-text .role{
+    font-size:11px;letter-spacing:.4em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:32px;
+  }
+  .designer-text blockquote{
+    font-family:'Cormorant Garamond',serif;
+    font-size:22px;font-style:italic;line-height:1.5;
+    padding-left:24px;border-left:1px solid var(--accent);
+    color:#ccc;margin-bottom:24px;
+  }
+  .designer-text p{color:var(--muted);font-size:15px}
+
+  /* ---------- ONE OF ONE ---------- */
+  .oneofone{
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(200,168,130,.08), transparent 60%),
+      var(--bg);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    text-align:center;
+  }
+  .oneofone .container{max-width:900px}
+  .oneofone h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(40px,6vw,84px);
+    font-weight:400;line-height:1.05;margin-bottom:32px;
+  }
+  .oneofone h2 em{font-style:italic;color:var(--accent)}
+  .oneofone p{color:var(--muted);max-width:600px;margin:0 auto 48px;font-size:16px}
+
+  /* ---------- ARCHIVE ---------- */
+  .archive-list{border-top:1px solid var(--line)}
+  .archive-item{
+    display:grid;
+    grid-template-columns:80px 1fr 200px 120px;
+    gap:32px;
+    align-items:center;
+    padding:32px 0;
+    border-bottom:1px solid var(--line);
+    transition:padding-left .4s ease;
+    cursor:pointer;
+  }
+  .archive-item:hover{padding-left:16px}
+  .archive-item .num{
+    font-family:'Cormorant Garamond',serif;
+    font-size:28px;color:var(--muted);
+  }
+  .archive-item .title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:26px;font-weight:400;
+  }
+  .archive-item .title small{
+    display:block;font-family:'Inter',sans-serif;
+    font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);margin-top:6px;font-weight:300;
+  }
+  .archive-item .status{
+    font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--muted);text-align:right;
+  }
+  .archive-item .status.sold{color:#6a3a3a}
+  .archive-item .arrow{text-align:right;color:var(--muted);font-size:20px}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:80px 48px 48px;
+    border-top:1px solid var(--line);
+    font-size:12px;color:var(--muted);
+  }
+  .footer-grid{
+    max-width:1400px;margin:0 auto;
+    display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;
+    margin-bottom:64px;
+  }
+  footer .logo{
+    font-family:'Cormorant Garamond',serif;
+    font-size:28px;letter-spacing:.3em;color:var(--fg);
+    margin-bottom:16px;
+  }
+  footer h4{
+    font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--fg);margin-bottom:20px;font-weight:400;
+  }
+  footer ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+  footer a{transition:color .3s}
+  footer a:hover{color:var(--fg)}
+  .footer-bottom{
+    max-width:1400px;margin:0 auto;
+    display:flex;justify-content:space-between;
+    padding-top:32px;border-top:1px solid var(--line);
+    font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  }
+
+  /* ---------- MODAL ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,.85);
+    backdrop-filter:blur(8px);
+    display:none;align-items:center;justify-content:center;
+    z-index:200;padding:24px;
+  }
+  .modal-overlay.open{display:flex}
+  .modal{
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    max-width:520px;width:100%;
+    padding:56px 48px;
+    position:relative;
+    max-height:90vh;overflow-y:auto;
+  }
+  .modal .close{
+    position:absolute;top:20px;right:24px;
+    font-size:24px;color:var(--muted);cursor:pointer;
+    background:none;border:none;font-family:inherit;
+  }
+  .modal h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:36px;font-weight:400;margin-bottom:8px;
+  }
+  .modal .sub{color:var(--accent);font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin-bottom:32px}
+  .modal label{
+    display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:8px;margin-top:20px;
+  }
+  .modal input,.modal textarea,.modal select{
+    width:100%;background:transparent;
+    border:none;border-bottom:1px solid var(--line);
+    color:var(--fg);font-family:inherit;font-size:15px;
+    padding:10px 0;outline:none;
+    transition:border-color .3s;
+  }
+  .modal input:focus,.modal textarea:focus,.modal select:focus{border-color:var(--accent)}
+  .modal textarea{resize:vertical;min-height:80px}
+  .modal select option{background:var(--bg-soft)}
+  .modal .btn{margin-top:36px;width:100%;text-align:center}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    nav{padding:20px 24px}
+    nav ul{display:none}
+    section{padding:80px 24px}
+    .hero{padding:0 24px 48px}
+    .story-grid,.designer-grid{grid-template-columns:1fr;gap:48px}
+    .archive-item{grid-template-columns:50px 1fr;gap:16px}
+    .archive-item .status,.archive-item .arrow{display:none}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+    .footer-bottom{flex-direction:column;gap:16px}
+    .modal{padding:40px 28px}
+  }
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">OBSCURA</div>
+  <ul>
+    <li><a href="#drop">Drop 01</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#designer">Designer</a></li>
+    <li><a href="#oneofone">One of One</a></li>
+    <li><a href="#archive">Archive</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg">
+    <div class="shape s1"></div>
+    <div class="shape s2"></div>
+    <div class="shape s3"></div>
+  </div>
+  <div class="hero-content">
+    <span class="hero-tag">Drop 01 — Live Now</span>
+    <h1>CURSED<br><em>Silhouettes</em></h1>
+    <div class="hero-meta">
+      <span>Limited Collection</span>
+      <span>7 Designs · 100 Pieces Each</span>
+      <span>Spring 2025</span>
+    </div>
+    <a href="#drop" class="btn">View Collection</a>
+  </div>
+  <div class="scroll-hint">Scroll ↓</div>
+</header>
+
+<!-- CURRENT DROP -->
+<section id="drop">
+  <div class="section-head reveal">
+    <div class="kicker">Current Drop</div>
+    <h2>Cursed <em>Silhouettes</em></h2>
+    <p>Семь вещей, вдохновлённых эстетикой тёмной энергии, городских руин и внутренней борьбы. Каждая модель выпущена ограниченным тиражом в 100 экземпляров.</p>
+  </div>
+
+  <div class="container">
+    <div class="grid">
+
+      <div class="card reveal">
+        <div class="card-img c1">
+          <div class="ph">01</div>
+          <div class="badge">Limited 100</div>
+          <div class="stock low">Осталось 17 / 100</div>
+        </div>
+        <div class="card-body">
+          <h3>Cursed Jacket</h3>
+          <div class="price">14 900 ₽</div>
+          <div class="bar"><span style="width:83%"></span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img c2">
+          <div class="ph">02</div>
+          <div class="badge">Limited 100</div>
+          <div class="stock">Осталось 34 / 100</div>
+        </div>
+        <div class="card-body">
+          <h3>Void Trousers</h3>
+          <div class="price">11 900 ₽</div>
+          <div class="bar"><span style="width:66%"></span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img c3">
+          <div class="ph">03</div>
+          <div class="badge">Limited 100</div>
+          <div class="stock low">Осталось 8 / 100</div>
+        </div>
+        <div class="card-body">
+          <h3>Energy Top</h3>
+          <div class="price">7 900 ₽</div>
+          <div class="bar"><span style="width:92%"></span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img c4">
+          <div class="ph">04</div>
+          <div class="badge">Limited 100</div>
+          <div class="stock">Осталось 51 / 100</div>
+        </div>
+        <div class="card-body">
+          <h3>Shadow Hoodie</h3>
+          <div class="price">12 400 ₽</div>
+          <div class="bar"><span style="width:49%"></span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img c5">
+          <div class="ph">05</div>
+          <div class="badge">Limited 100</div>
+          <div class="stock">Осталось 42 / 100</div>
+        </div>
+        <div class="card-body">
+          <h3>Sigil Overshirt</h3>
+          <div class="price">13 200 ₽</div>
+          <div class="bar"><span style="width:58%"></span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img c6">
+          <div class="ph">06</div>
+          <div class="badge">Limited 100</div>
+          <div class="stock">Осталось 27 / 100</div>
+        </div>
+        <div class="card-body">
+          <h3>Ritual Longsleeve</h3>
+          <div class="price">8 900 ₽</div>
+          <div class="bar"><span style="width:73%"></span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img c7">
+          <div class="ph">07</div>
+          <div class="badge">Limited 100</div>
+          <div class="stock low">Осталось 12 / 100</div>
+        </div>
+        <div class="card-body">
+          <h3>Fragment Coat</h3>
+          <div class="price">22 900 ₽</div>
+          <div class="bar"><span style="width:88%"></span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="kicker">The Story</div>
+      <h2>Как рождается <em>дроп</em></h2>
+    </div>
+    <div class="story-grid">
+      <div class="story-visual reveal"></div>
+      <div class="story-text reveal">
+        <p class="lede">«Мы не делаем мерч. Мы переводим визуальный язык произведения на язык современной одежды».</p>
+        <p>Каждый дроп начинается с мудборда: кадры, палитра, символика, текстуры. Дизайнер изучает атмосферу первоисточника — не копирует костюмы персонажей, а создаёт собственные силуэты, в которых эта эстетика читается.</p>
+        <p>Дальше — эскизы, ткани, пошив одного образца каждой вещи. Финальный этап: съёмка, показ коллекции и запуск ограниченного тиража. 100 экземпляров каждой модели. Дальше — никогда.</p>
+        <p>Мы сохраняем авторство: имя дизайнера стоит рядом с именем дропа. Это не анонимный масс-маркет — это коллаборация.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGNER -->
+<section id="designer">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="kicker">Designer</div>
+      <h2>Гость <em>Drop 01</em></h2>
+    </div>
+    <div class="designer-grid">
+      <div class="designer-photo reveal"></div>
+      <div class="designer-text reveal">
+        <div class="name">Anna Vertinskaya</div>
+        <div class="role">Guest Designer · Drop 01</div>
+        <blockquote>«Мне было важно не сделать костюм персонажа, а поймать то ощущение, которое возникает, когда смотришь на тёмную энергию. Одежда должна работать как оберег — не показывать, а скрывать и защищать».</blockquote>
+        <p>Выпускница Британской высшей школы дизайна. Работала с независимыми театральными проектами, автор двух собственных капсул. В OBSCURA отвечает за визуальный язык Drop 01 — от первых набросков до подбора тканей.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ONE OF ONE -->
+<section class="oneofone" id="oneofone">
+  <div class="container reveal">
+    <div class="kicker" style="justify-content:center;display:flex;margin-bottom:24px;">Bespoke Service</div>
+    <h2>One of <em>One</em></h2>
+    <p>Вещь, которой больше ни у кого не будет. Дизайнер разрабатывает индивидуальный эскиз в эстетике текущего дропа — с учётом твоих пожеланий, размеров и материалов. Единственный экземпляр в мире.</p>
+    <button class="btn gold" onclick="openModal()">Заказать авторскую вещь</button>
+  </div>
+</section>
+
+<!-- ARCHIVE -->
+<section id="archive">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="kicker">Archive</div>
+      <h2>Прошлые <em>дропы</em></h2>
+      <p>Каждый дроп выпускается один раз. Когда тираж распродан — он не повторяется.</p>
+    </div>
+
+    <div class="archive-list">
+      <div class="archive-item reveal">
+        <div class="num">01</div>
+        <div class="title">Cursed Silhouettes <small>Вдохновлено Jujutsu Kaisen</small></div>
+        <div class="status">Live · 2025</div>
+        <div class="arrow">→</div>
+      </div>
+      <div class="archive-item reveal">
+        <div class="num">02</div>
+        <div class="title">Down the Rabbit Hole <small>Вдохновлено Alice in Wonderland</small></div>
+        <div class="status sold">Sold Out</div>
+        <div class="arrow">→</div>
+      </div>
+      <div class="archive-item reveal">
+        <div class="num">03</div>
+        <div class="title">Black & White <small>Вдохновлено Cruella</small></div>
+        <div class="status sold">Sold Out</div>
+        <div class="arrow">→</div>
+      </div>
+      <div class="archive-item reveal">
+        <div class="num">04</div>
+        <div class="title">Neon Tokyo <small>Вдохновлено Akira</small></div>
+        <div class="status sold">Sold Out</div>
+        <div class="arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="logo">OBSCURA</div>
+      <p style="max-width:320px;line-height:1.7">Limited fashion drops, вдохновлённые эстетикой кино, сериалов и аниме. Авторские коллекции. Ограниченные тиражи. Никогда не повторяются.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#drop">Drop 01</a></li>
+        <li><a href="#archive">Archive</a></li>
+        <li><a href="#oneofone">One of One</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>About</h4>
+      <ul>
+        <li><a href="#story">Story</a></li>
+        <li><a href="#designer">Designer</a></li>
+        <li><a href="#">Лицензирование</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">hello@obscura.studio</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 OBSCURA Studio</span>
+    <span>Made for educational project</span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="close" onclick="closeModal()">×</button>
+    <h3>One of One</h3>
+    <div class="sub">Individual Commission</div>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:8px">Оставь заявку — дизайнер свяжется с тобой в течение 3 рабочих дней.</p>
+
+    <label>Тип вещи</label>
+    <select>
+      <option>Верхняя одежда</option>
+      <option>Футболка / лонгслив</option>
+      <option>Худи / свитшот</option>
+      <option>Брюки</option>
+      <option>Аксессуары</option>
+      <option>Другое</option>
+    </select>
+
+    <label>Размер</label>
+    <input type="text" placeholder="XS / S / M / L / XL или индивидуальные мерки" />
+
+    <label>Пожелания</label>
+    <textarea placeholder="Опиши, что ты хочешь: силуэт, материалы, референсы, детали..."></textarea>
+
+    <label>Бюджет</label>
+    <input type="text" placeholder="от 50 000 ₽" />
+
+    <label>Email</label>
+    <input type="email" placeholder="you@example.com" />
+
+    <button class="btn gold" onclick="submitModal()">Отправить заявку</button>
+  </div>
+</div>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Modal
+  const modal = document.getElementById('modal');
+  function openModal(){ modal.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
+  function submitModal(){
+    alert('Спасибо! Заявка отправлена. Дизайнер свяжется с тобой в течение 3 рабочих дней.');
+    closeModal();
+  }
+  modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeModal(); });
+
+  // Smooth scroll for nav
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',(e)=>{
+      const t = document.querySelector(a.getAttribute('href'));
+      if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
+</script>
+
+</body>
+</html>
